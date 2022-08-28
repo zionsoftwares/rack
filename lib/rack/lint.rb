@@ -182,8 +182,8 @@ module Rack
 
         ## <tt>rack.protocol</tt>:: If the request is an HTTP/1 upgrade or
         ##                          HTTP/2 CONNECT with +:protocol+ pseudo
-        ##                          header, this is set to the value of that
-        ##                          header.
+        ##                          header, this is set to an +Array+
+        ##                          containing the value(s) of that header.
 
         ## Additional environment specifications have approved to
         ## standardized middleware APIs. None of these are required to
