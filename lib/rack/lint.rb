@@ -725,7 +725,7 @@ module Rack
       ##
       def check_rack_protocol_header(status, headers)
         ## If the +rack.protocol+ header is present, it must be a String, and
-        ## must be one of the values from the +rack.protocols+ array from the
+        ## must be one of the values from the +rack.protocol+ array from the
         ## environment.
         protocol = headers['rack.protocol']
         if protocol

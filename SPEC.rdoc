@@ -265,7 +265,7 @@ There must not be a <tt>content-length</tt> header key when the
 ==== The +rack.protocol+ Header
 
 If the +rack.protocol+ header is present, it must be a String, and
-must be one of the values from the +rack.protocols+ array from the
+must be one of the values from the +rack.protocol+ array from the
 environment.
 
 Setting this value informs the server that it should perform a
