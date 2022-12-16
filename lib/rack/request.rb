@@ -497,7 +497,8 @@ module Rack
       # multipart/form-data.
       def POST
         if get_header(RACK_INPUT).nil?
-          raise "Missing rack.input"
+          set_header RACK_REQUEST_FORM_INPUT, get_header(RACK_INPUT)
+          set_header(RACK_REQUEST_FORM_HASH, {})
         elsif get_header(RACK_REQUEST_FORM_INPUT) == get_header(RACK_INPUT)
           get_header(RACK_REQUEST_FORM_HASH)
         elsif form_data? || parseable_data?

@@ -696,9 +696,9 @@ class RackRequestTest < Minitest::Spec
       message.must_equal "invalid %-encoding (a%)"
   end
 
-  it "raise if rack.input is missing" do
+  it "return empty POST data if rack.input is missing" do
     req = make_request({})
-    lambda { req.POST }.must_raise RuntimeError
+    req.POST.must_be_empty
   end
 
   it "parse POST data when method is POST and no content-type given" do

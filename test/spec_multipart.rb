@@ -42,6 +42,13 @@ describe Rack::Multipart do
     }.must_raise Rack::Multipart::Error
   end
 
+  it "raises a bad request exception if no body is given" do
+    env = Rack::MockRequest.env_for("/", "CONTENT_TYPE" => 'multipart/form-data; boundary=BurgerBurger', :input => nil)
+    lambda {
+      Rack::Multipart.parse_multipart(env)
+    }.must_raise Rack::BadRequest
+  end
+
   it "parse multipart content when content type present but disposition is not" do
     env = Rack::MockRequest.env_for("/", multipart_fixture(:content_type_and_no_disposition))
     params = Rack::Multipart.parse_multipart(env)

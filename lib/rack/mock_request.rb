@@ -42,8 +42,7 @@ module Rack
     end
 
     DEFAULT_ENV = {
-      RACK_INPUT        => StringIO.new,
-      RACK_ERRORS       => StringIO.new,
+      RACK_ERRORS => StringIO.new,
     }.freeze
 
     def initialize(app)
@@ -144,20 +143,25 @@ module Rack
         end
       end
 
-      opts[:input] ||= String.new
+      unless opts.key?(:input)
+        opts[:input] = String.new
+      end
+
       if String === opts[:input]
         rack_input = StringIO.new(opts[:input])
       else
         rack_input = opts[:input]
       end
 
-      rack_input.set_encoding(Encoding::BINARY)
-      env[RACK_INPUT] = rack_input
+      if rack_input
+        rack_input.set_encoding(Encoding::BINARY)
+        env[RACK_INPUT] = rack_input
 
-      env["CONTENT_LENGTH"] ||= env[RACK_INPUT].size.to_s if env[RACK_INPUT].respond_to?(:size)
+        env["CONTENT_LENGTH"] ||= env[RACK_INPUT].size.to_s if env[RACK_INPUT].respond_to?(:size)
+      end
 
       opts.each { |field, value|
-        env[field] = value  if String === field
+        env[field] = value if String === field
       }
 
       env

@@ -46,7 +46,7 @@ describe Rack::MockRequest do
   end
 
   it "should handle a non-GET request with both :input and :params" do
-    env = Rack::MockRequest.env_for("/", method: :post, input: nil, params: {})
+    env = Rack::MockRequest.env_for("/", method: :post, input: "", params: {})
     env["PATH_INFO"].must_equal "/"
     env.must_be_kind_of Hash
     env['rack.input'].read.must_equal ''
