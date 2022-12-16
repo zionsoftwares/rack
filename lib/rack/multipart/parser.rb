@@ -3,18 +3,23 @@
 require 'strscan'
 
 require_relative '../utils'
+require_relative '../bad_request'
 
 module Rack
   module Multipart
-    class MultipartPartLimitError < Errno::EMFILE; end
+    class MultipartPartLimitError < Errno::EMFILE;
+    end
 
     # Use specific error class when parsing multipart request
     # that ends early.
-    class EmptyContentError < ::EOFError; end
+    class EmptyContentError < ::EOFError
+      include BadRequest
+    end
 
     # Base class for multipart exceptions that do not subclass from
     # other exception classes for backwards compatibility.
-    class Error < StandardError; end
+    class Error < StandardError
+    end
 
     EOL = "\r\n"
     MULTIPART = %r|\Amultipart/.*boundary=\"?([^\";,]+)\"?|ni
